@@ -1,9 +1,29 @@
-# Getting and Cleaning Data
-###
-#Load Libraries
+CodeBook for Tidy Data
+
+The Data
+
+The files in the folder ‘UCI HAR Dataset’ used are:
+
+test/subject_test.txt
+train/subject_train.txt
+test/X_test.txt
+train/X_train.txt
+test/y_test.txt
+train/y_train.txt
+features.txt - Names for the column variables 
+activity_labels.txt - describes the class labels with their activity name.
+
+Transformations performed to clean up the data called
+
+First Brought in the dataset into R 
+
+1. Load required packages:
+
 library(tidyr)
 library(dplyr)
 library(data.table)
+
+2. Combine the data into data frames
 
 # merge datasets and create data tables.
 # Build the Training Test
@@ -66,10 +86,13 @@ activity_labels <- read.table("~/JHU/UCI HAR Dataset/activity_labels.txt", quote
 setnames(activity_labels, "V1", "activitynumber")
 setnames(activity_labels, "V2", "activityname")
 
-#Filter out the mean
+#Filter out the mean and std variables
 meanstdfilter <- grep("mean\\(\\)|std\\(\\)",datavariables,value=TRUE)
 meanstdfilter <- c(meanstdfilter,"subject","activitynumber")
 alldatatable <- subset(alldatatable, select=meanstdfilter)
 
+
+4. 
 ## finally write out the resulting data set
 write.table(alldatatable, "tidydata4U.txt", row.name=FALSE)
+
